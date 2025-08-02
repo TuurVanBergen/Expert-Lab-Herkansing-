@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import IntroPage from "./pages/IntroPage";
 import QuestionPage from "./pages/QuestionPage";
 import EndPage from "./pages/EndPage";
+import useWebSocket from "../../td-bridge/hooks/useWebSocket.js";
 import "./styles/QuestionPage.css";
 
 const questions = [
@@ -21,10 +22,17 @@ function App() {
 	const [step, setStep] = useState(0);
 	const [answers, setAnswers] = useState([]);
 
+	// WebSocket initialiseren - pas hier je IP aan
+	const { sendMessage } = useWebSocket("ws://localhost:8080");
+
 	const handleStart = () => setStep(1);
 
 	const handleAnswer = (answer) => {
 		const questionIndex = step - 1;
+
+		// Verstuur antwoord via WebSocket
+		sendMessage({ question: questions[questionIndex].text, answer });
+
 		setAnswers([
 			...answers,
 			{ question: questions[questionIndex].text, answer },
