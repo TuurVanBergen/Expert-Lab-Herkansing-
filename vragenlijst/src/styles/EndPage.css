@@ -1,0 +1,43 @@
+.end-page {
+	height: 100vh;
+	background: #000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: #f0f0f0;
+	font-family: "Arial", sans-serif;
+}
+
+.end-box {
+	text-align: center;
+	padding: 40px;
+	background-color: #222;
+	border-radius: 16px;
+}
+
+.end-box h1 {
+	font-size: 2rem;
+	margin-bottom: 20px;
+}
+
+.end-box p {
+	font-size: 1.2rem;
+	margin-bottom: 10px;
+}
+
+.end-box .small {
+	font-size: 0.9rem;
+	color: #999;
+}
+body {
+	margin: 0;
+}
+
+.blackout {
+	background-color: black;
+	color: black;
+}
+
+.blackout .end-box {
+	display: none;
+}
