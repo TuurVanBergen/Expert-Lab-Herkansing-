@@ -1,7 +1,7 @@
 // server.js
 import { WebSocketServer } from "ws";
 
-const wss = new WebSocketServer({ port: 8080 });
+const wss = new WebSocketServer({ port: 8080, host: "0.0.0.0" });
 
 wss.on("connection", (ws) => {
 	console.log("WebSocket connected");
@@ -9,7 +9,12 @@ wss.on("connection", (ws) => {
 	ws.on("message", (data) => {
 		console.log("Received from web:", data.toString());
 
-		// Hier zou je straks TouchDesigner kunnen triggeren
+		// Broadcast naar alle clients (inclusief TouchDesigner)
+		wss.clients.forEach((client) => {
+			if (client.readyState === ws.OPEN) {
+				client.send(data.toString());
+			}
+		});
 	});
 });
 
