@@ -6,16 +6,30 @@ import useWebSocket from "../../td-bridge/hooks/useWebSocket.js";
 import "./styles/QuestionPage.css";
 
 const questions = [
-	{ text: "Vraag1" },
-	{ text: "Vraag2" },
-	{ text: "Vraag3" },
-	{ text: "Vraag4" },
-	{ text: "Vraag5" },
-	{ text: "Vraag6" },
-	{ text: "Vraag7" },
-	{ text: "Vraag8" },
-	{ text: "Vraag9" },
-	{ text: "Vraag10" },
+	{
+		text: "Wil je dat we je stemming proberen af te leiden via gezichtsherkenning?",
+	},
+	{ text: "Mag deze installatie detecteren met wie je in de ruimte staat?" },
+	{ text: "Mag deze installatie je stem analyseren?" },
+	{ text: "Wil je dat we een foto van je maken voor dit kunstwerk?" },
+	{
+		text: "Mag deze installatie je interacties delen met een derde partij voor analyse?",
+	},
+	{ text: "Ben jij iemand die liever routines volgt dan verrassingen omarmt?" },
+	{ text: "Lach je vaker uit beleefdheid dan om iets écht grappigs?" },
+	{
+		text: "Heb je soms het gevoel dat je wordt bekeken, ook als je alleen bent?",
+	},
+	{ text: "Voel jij je vaker verbonden met machines dan met mensen?" },
+	{
+		text: "Ben je sneller geneigd iets te geloven als het mooi gepresenteerd is?",
+	},
+
+	{ text: "Verander je van mening als de meerderheid iets anders vindt?" },
+	{ text: "Denk je vaak dat mensen je gedrag analyseren?" },
+	{ text: "Is eerlijk zijn belangrijker dan aardig zijn?" },
+	{ text: "Hou je ervan om gecontroleerd te worden, zolang het duidelijk is?" },
+	{ text: "Herinner je je liever dan dat je opzoekt?" },
 ];
 
 function App() {
