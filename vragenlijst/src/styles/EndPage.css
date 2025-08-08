@@ -1,36 +1,30 @@
 .end-page {
 	height: 100vh;
-	background: #000;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: #f0f0f0;
-	font-family: "Arial", sans-serif;
+	background: #f5f5f7;
 }
 
 .end-box {
 	text-align: center;
+	background: white;
 	padding: 40px;
-	background-color: #222;
-	border-radius: 16px;
+	border-radius: 20px;
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
 }
 
-.end-box h1 {
-	font-size: 2rem;
-	margin-bottom: 20px;
+.end-box h2 {
+	font-size: 1.5rem;
+	font-weight: 600;
+	color: #1d1d1f;
+	margin-bottom: 16px;
 }
 
 .end-box p {
-	font-size: 1.2rem;
-	margin-bottom: 10px;
-}
-
-.end-box .small {
-	font-size: 0.9rem;
-	color: #999;
-}
-body {
-	margin: 0;
+	color: #515154;
+	font-size: 1rem;
+	margin-bottom: 8px;
 }
 
 .blackout {
