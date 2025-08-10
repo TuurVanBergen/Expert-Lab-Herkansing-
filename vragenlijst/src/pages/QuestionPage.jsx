@@ -49,20 +49,52 @@ function QuestionPage({ question, onAnswer }) {
 		}
 	}, [question]);
 
+	const [timeLeft, setTimeLeft] = useState(5);
+	const [autoAnswered, setAutoAnswered] = useState(false);
+
+	useEffect(() => {
+		setTimeLeft(5);
+		setAutoAnswered(false);
+
+		if (question.category === "datadeling") {
+			const timerId = setInterval(() => {
+				setTimeLeft((prev) => {
+					if (prev <= 1) {
+						clearInterval(timerId);
+						setAutoAnswered(true);
+						onAnswer("ja");
+						return 0;
+					}
+					return prev - 1;
+				});
+			}, 1000);
+
+			return () => clearInterval(timerId);
+		}
+	}, [question]);
+
 	return (
 		<div className="question-page">
 			<div className="question-box">
 				<p className="question-text">{question.text}</p>
 
 				<div className="button-group">
-					<button className="yes-btn" onClick={() => onAnswer("ja")}>
-						Ja
+					<button
+						className="yes-btn"
+						onClick={() => !autoAnswered && onAnswer("ja")}
+						disabled={autoAnswered}
+					>
+						Ja{" "}
+						{question.category === "datadeling" && timeLeft > 0
+							? `(${timeLeft})`
+							: ""}
 					</button>
+
 					{noBtnVisible ? (
 						<button
 							className="no-btn"
-							onClick={handleNoClick}
-							disabled={noBtnDisabled}
+							onClick={() => !autoAnswered && handleNoClick()}
+							disabled={noBtnDisabled || autoAnswered}
 						>
 							Nee
 						</button>

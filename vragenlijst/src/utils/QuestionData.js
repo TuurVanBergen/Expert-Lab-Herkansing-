@@ -62,12 +62,13 @@ const questions = [
 		impact:
 			"Verlies van controle over data, risico op hergebruik in marketing, profiling of verkoop van persoonsgegevens.",
 		dark_pattern: {
-			type: "preselectie",
+			type: "time pressure",
 			description:
-				"Standaard staat het antwoord 'Ja' geselecteerd, waardoor passieve gebruikers akkoord gaan.",
-			triggered_if: "Gebruiker laat standaardantwoord ongewijzigd.",
+				"Gebruiker krijgt slechts 5 seconden om te antwoorden, daarna wordt automatisch 'Ja' gekozen.",
+			triggered_if: "Gebruiker reageert niet binnen de tijdslimiet.",
 		},
 	},
+
 	{
 		text: "Ben jij iemand die liever routines volgt dan verrassingen omarmt?",
 		category: "persoonlijkheid",
