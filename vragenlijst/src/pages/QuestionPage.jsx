@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function QuestionPage({ question, onAnswer }) {
 	const [showConfirmShame, setShowConfirmShame] = useState(false);
+	const [noBtnVisible, setNoBtnVisible] = useState(true);
+	const [noBtnDisabled, setNoBtnDisabled] = useState(false);
 
 	const handleNoClick = () => {
 		if (question.text.includes("stemming")) {
@@ -22,6 +24,31 @@ function QuestionPage({ question, onAnswer }) {
 		}
 	};
 
+	useEffect(() => {
+		setShowConfirmShame(false);
+		setNoBtnVisible(true);
+		setNoBtnDisabled(false);
+
+		if (question.category === "spraakanalyse") {
+			setNoBtnVisible(false);
+			setNoBtnDisabled(false);
+
+			const hideTimer = setTimeout(() => {
+				setNoBtnVisible(true);
+				setNoBtnDisabled(true);
+			}, 4000);
+
+			const enableTimer = setTimeout(() => {
+				setNoBtnDisabled(false);
+			}, 6000);
+
+			return () => {
+				clearTimeout(hideTimer);
+				clearTimeout(enableTimer);
+			};
+		}
+	}, [question]);
+
 	return (
 		<div className="question-page">
 			<div className="question-box">
@@ -31,9 +58,17 @@ function QuestionPage({ question, onAnswer }) {
 					<button className="yes-btn" onClick={() => onAnswer("ja")}>
 						Ja
 					</button>
-					<button className="no-btn" onClick={handleNoClick}>
-						Nee
-					</button>
+					{noBtnVisible ? (
+						<button
+							className="no-btn"
+							onClick={handleNoClick}
+							disabled={noBtnDisabled}
+						>
+							Nee
+						</button>
+					) : (
+						<div style={{ width: "60px" }}></div>
+					)}
 				</div>
 			</div>
 
