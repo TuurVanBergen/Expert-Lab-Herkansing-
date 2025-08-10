@@ -4,14 +4,14 @@ const questions = [
 		category: "biometrische analyse",
 		insight:
 			"Detectie van emotie via gezichtsuitdrukkingen — kan onbewust emotionele staten en mentale gezondheid blootleggen.",
-		source: "https://en.wikipedia.org/wiki/Emotion_recognition",
+		source:
+			"https://en.wikipedia.org/wiki/Emotion_recognition, https://businesslawtoday.org/2024/09/emotional-ai-privacy-manipulation-bias-risks/",
 		risk_level: "high",
 		impact:
-			"Kan leiden tot profiling op basis van emotionele toestand, wat gebruikt kan worden in commerciële beïnvloeding of psychologische manipulatie.",
+			"Kan leiden tot profiling op basis van emotionele toestand, wat gebruikt kan worden in commerciële beïnvloeding",
 		dark_pattern: {
 			type: "confirmshaming",
-			description:
-				"Gebruiker voelt zich schuldig als hij/zij weigert; visuele cues en tekst die weigeren negatief framen.",
+			description: "Gebruiker voelt zich schuldig als hij/zij weigert.",
 			triggered_if: "Gebruiker kiest 'Nee'",
 		},
 	},
@@ -20,7 +20,8 @@ const questions = [
 		category: "sociale detectie",
 		insight:
 			"Analyse van omgevingspersonen via computer vision of sensoren — kan sociale netwerken en aanwezigheidspatronen blootleggen.",
-		source: "https://en.wikipedia.org/wiki/Computer_vision",
+		source:
+			"https://en.wikipedia.org/wiki/Computer_vision, https://vision.soic.indiana.edu/papers/bystander2020oakland.pdf",
 		risk_level: "high",
 		impact:
 			"Geeft gevoelige data over met wie iemand omgaat, wat relaties en sociale structuren kan verraden.",
@@ -37,7 +38,8 @@ const questions = [
 		category: "spraakanalyse",
 		insight:
 			"Analyse van spraak kan emoties, accent, gezondheidstoestand en unieke stem-ID onthullen.",
-		source: "https://en.wikipedia.org/wiki/Speaker_recognition",
+		source:
+			"https://en.wikipedia.org/wiki/Speaker_recognition, https://pmc.ncbi.nlm.nih.gov/articles/PMC7928859, https://www.rinf.tech/voice-recognition-and-security-balancing-convenience-and-privacy/",
 		risk_level: "high",
 		impact:
 			"Stemprints kunnen worden gebruikt als biometrisch identificatiemiddel en zijn moeilijk te wijzigen als ze uitlekken.",
@@ -54,7 +56,8 @@ const questions = [
 		category: "datadeling",
 		insight:
 			"Doorgeven van interactiedata aan externe entiteiten — mogelijk zonder dat gebruiker weet wie deze derden zijn.",
-		source: "https://en.wikipedia.org/wiki/Third-party_data",
+		source:
+			"https://en.wikipedia.org/wiki/Third-party_data, https://lawsocietyonline.com/third-party-data-sharing/",
 		risk_level: "high",
 		impact:
 			"Verlies van controle over data, risico op hergebruik in marketing, profiling of verkoop van persoonsgegevens.",

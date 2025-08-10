@@ -1,7 +1,27 @@
 import React from "react";
-import "./ReportCharts.css";
+import { Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+
+import "../styles/ReportCharts.css";
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function ReportPage({ answers }) {
+	// Bereken hoeveel dark patterns getriggerd zijn
+	const total = answers.length;
+	const triggeredCount = answers.filter((a) => a.dark_pattern_triggered).length;
+
+	const data = {
+		labels: ["Dark patterns getriggerd", "Niet getriggerd"],
+		datasets: [
+			{
+				data: [triggeredCount, total - triggeredCount],
+				backgroundColor: ["#FF6384", "#36A2EB"],
+				hoverBackgroundColor: ["#FF6384CC", "#36A2EBCC"],
+			},
+		],
+	};
+
 	return (
 		<div className="report-container">
 			<h1 className="report-title">Jouw Privacy Verhaal</h1>
@@ -12,6 +32,7 @@ export default function ReportPage({ answers }) {
 				hebben. Tijdens deze ervaring hebben we jouw antwoorden verzameld en een
 				beeld gemaakt van je digitale kwetsbaarheid.
 			</p>
+
 			<section className="report-section">
 				<h2>Overzicht van je antwoorden en risico's</h2>
 				<p>
@@ -20,7 +41,16 @@ export default function ReportPage({ answers }) {
 					spraakanalyse en datadeling. Hieronder zie je jouw antwoorden, het
 					bijbehorende risico en de beïnvloedingspatronen die werden gebruikt.
 				</p>
+
+				{/* Donut chart */}
+				<div className="donut-chart-container">
+					<Doughnut data={data} />
+					<p className="chart-description">
+						Hoe vaak ben je in een dark pattern gelopen?
+					</p>
+				</div>
 			</section>
+
 			<section className="report-section">
 				<h2>Jouw persoonlijke profiel</h2>
 				<p>
@@ -30,6 +60,7 @@ export default function ReportPage({ answers }) {
 					samenvatting van je antwoorden en wat dit over jou zegt.
 				</p>
 			</section>
+
 			<section className="report-section">
 				<h2>Conclusies</h2>
 				<ul>
