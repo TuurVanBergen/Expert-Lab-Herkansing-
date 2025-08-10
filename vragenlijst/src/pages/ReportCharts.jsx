@@ -7,9 +7,14 @@ import "../styles/ReportCharts.css";
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default function ReportPage({ answers }) {
-	// Bereken hoeveel dark patterns getriggerd zijn
-	const total = answers.length;
-	const triggeredCount = answers.filter((a) => a.dark_pattern_triggered).length;
+	// Filter alleen de eerste 4 vragen (de privacy gerelateerde met dark patterns)
+	const firstFour = answers.slice(0, 4);
+
+	// Bepaal trigger: als antwoord === "Ja" → dark pattern getriggerd
+	const triggeredCount = firstFour.filter(
+		(a) => a.answer?.toLowerCase() === "ja"
+	).length;
+	const total = firstFour.length;
 
 	const data = {
 		labels: ["Dark patterns getriggerd", "Niet getriggerd"],
@@ -34,12 +39,10 @@ export default function ReportPage({ answers }) {
 			</p>
 
 			<section className="report-section">
-				<h2>Overzicht van je antwoorden en risico's</h2>
+				<h2>Dark pattern overzicht</h2>
 				<p>
-					Deze installatie stelde vier vragen over technologieën die je privacy
-					raken: gezichtsherkenning, herkenning van mensen om je heen,
-					spraakanalyse en datadeling. Hieronder zie je jouw antwoorden, het
-					bijbehorende risico en de beïnvloedingspatronen die werden gebruikt.
+					De eerste vier vragen bevatten subtiele beïnvloedingstechnieken (dark
+					patterns). In de grafiek zie je hoe vaak je hierin bent getrapt.
 				</p>
 
 				{/* Donut chart */}

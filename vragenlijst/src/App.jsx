@@ -53,8 +53,6 @@ function App() {
 		// Antwoord opslaan
 		setAnswers((prev) => {
 			const updated = [...prev, { ...currentQuestion, answer }];
-
-			// Als dit het laatste antwoord was → log alles
 			if (step >= questions.length) {
 				console.log("Alle antwoorden:", updated);
 			}
@@ -75,19 +73,22 @@ function App() {
 
 	// ====== RENDER FLOW ======
 
-	if (step === 0) {
-		return <IntroPage onStart={handleStart} />;
-	} else if (step > 0 && step <= questions.length) {
-		return (
-			<QuestionPage question={questions[step - 1]} onAnswer={handleAnswer} />
-		);
-	} else if (step === -1) {
-		// Dit is normaal je EndPage
-		// Maak dit tijdelijk zo:
-		return <ReportPage answers={answers} />;
-	}
-
-	return null;
+	return (
+		<>
+			<video
+				ref={videoRef}
+				autoPlay
+				muted
+				playsInline
+				className="background-video"
+			/>
+			{step === 0 && <IntroPage onStart={handleStart} />}
+			{step > 0 && step <= questions.length && (
+				<QuestionPage question={questions[step - 1]} onAnswer={handleAnswer} />
+			)}
+			{step === -1 && <ReportPage answers={answers} />}
+		</>
+	);
 }
 
 export default App;
