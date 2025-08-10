@@ -41,7 +41,7 @@ function App() {
 		const questionIndex = step - 1;
 		const currentQuestion = questions[questionIndex];
 
-		// Verstuur antwoord via WebSocket
+		// Stuur naar websocket
 		sendMessage({
 			question: currentQuestion.text,
 			answer,
@@ -50,46 +50,25 @@ function App() {
 			source: currentQuestion.source,
 		});
 
-		// Sla antwoord lokaal op
-		setAnswers((prev) => [...prev, { ...currentQuestion, answer }]);
+		// Antwoord opslaan
+		setAnswers((prev) => {
+			const updated = [...prev, { ...currentQuestion, answer }];
 
-		const processedAnswers = questions.map((q, i) => {
-			const userAnswer = answers[i];
-			let triggered = false;
-
-			// Alleen checken voor de eerste 4 vragen en als er een dark_pattern is
-			if (i < 4 && q.dark_pattern) {
-				const condition = q.dark_pattern.triggered_if;
-
-				if (condition === "Gebruiker kiest 'Nee'" && userAnswer === "no") {
-					triggered = true;
-				} else if (
-					condition === "Gebruiker kiest 'Ja'" &&
-					userAnswer === "yes"
-				) {
-					triggered = true;
-				} else if (
-					condition === "Gebruiker laat standaardantwoord ongewijzigd." &&
-					userAnswer === "yes"
-				) {
-					// Voor preselectie, aangenomen dat "yes" betekent ongewijzigd
-					triggered = true;
-				}
+			// Als dit het laatste antwoord was → log alles
+			if (step >= questions.length) {
+				console.log("Alle antwoorden:", updated);
 			}
 
-			return { ...q, userAnswer, dark_pattern_triggered: triggered };
+			return updated;
 		});
 
-		// Volgende stap
+		// Naar volgende stap
 		if (step < questions.length) {
 			setStep(step + 1);
 		} else {
-			// Laat eerst EndPage zien
 			setStep(-1);
-
-			// Na korte tijd automatisch ReportCharts printen
 			setTimeout(() => {
-				setStep(-2); // -2 = ReportCharts fase
+				setStep(-2);
 			}, 10000);
 		}
 	};
