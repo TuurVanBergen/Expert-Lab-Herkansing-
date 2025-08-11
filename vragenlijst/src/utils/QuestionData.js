@@ -40,7 +40,7 @@ const questions = [
 			"Analyse van spraak kan emoties, accent, gezondheidstoestand en unieke stem-ID onthullen.",
 		source:
 			"https://en.wikipedia.org/wiki/Speaker_recognition, https://pmc.ncbi.nlm.nih.gov/articles/PMC7928859, https://www.rinf.tech/voice-recognition-and-security-balancing-convenience-and-privacy/",
-		risk_level: "high",
+		risk_level: "low",
 		impact:
 			"Stemprints kunnen worden gebruikt als biometrisch identificatiemiddel en zijn moeilijk te wijzigen als ze uitlekken.",
 		dark_pattern: {
@@ -58,7 +58,7 @@ const questions = [
 			"Doorgeven van interactiedata aan externe entiteiten — mogelijk zonder dat gebruiker weet wie deze derden zijn.",
 		source:
 			"https://en.wikipedia.org/wiki/Third-party_data, https://lawsocietyonline.com/third-party-data-sharing/",
-		risk_level: "high",
+		risk_level: "medium",
 		impact:
 			"Verlies van controle over data, risico op hergebruik in marketing, profiling of verkoop van persoonsgegevens.",
 		dark_pattern: {
