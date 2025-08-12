@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Doughnut, Bar } from "react-chartjs-2";
 import {
 	Chart as ChartJS,
@@ -9,7 +9,6 @@ import {
 	LinearScale,
 	BarElement,
 } from "chart.js";
-
 import "../styles/ReportCharts.css";
 
 ChartJS.register(
@@ -22,6 +21,12 @@ ChartJS.register(
 );
 
 export default function ReportPage({ answers }) {
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			window.print();
+		}, 500);
+		return () => clearTimeout(timer);
+	}, []);
 	// Eerste 4 vragen: privacy / dark patterns
 	const firstFour = answers.slice(0, 4);
 	const triggeredCount = firstFour.filter(
@@ -79,16 +84,36 @@ export default function ReportPage({ answers }) {
 		],
 	};
 
-	const barOptions = {
+	const baseChartOptions = {
 		responsive: true,
+		maintainAspectRatio: false,
 		plugins: {
-			legend: { position: "bottom" },
+			legend: {
+				position: "bottom",
+				labels: {
+					font: { size: 10 },
+				},
+			},
 		},
 		scales: {
-			x: { stacked: true },
-			y: { stacked: true, beginAtZero: true, stepSize: 1 },
+			x: {
+				stacked: true,
+				ticks: {
+					font: { size: 9 },
+				},
+			},
+			y: {
+				stacked: true,
+				beginAtZero: true,
+				ticks: {
+					stepSize: 1,
+					font: { size: 9 },
+				},
+			},
 		},
 	};
+
+	const barOptions = { ...baseChartOptions };
 
 	// Persoonlijke vragen (vanaf index 4)
 	const personalQuestions = answers.slice(4);
@@ -118,14 +143,20 @@ export default function ReportPage({ answers }) {
 	};
 
 	const personalPerQuestionOptions = {
+		...baseChartOptions,
 		indexAxis: "y",
-		responsive: true,
 		scales: {
 			x: {
 				beginAtZero: true,
 				max: 1,
 				ticks: {
 					callback: (value) => (value === 1 ? "Ja" : "Nee"),
+					font: { size: 9 },
+				},
+			},
+			y: {
+				ticks: {
+					font: { size: 9 },
 				},
 			},
 		},
@@ -171,7 +202,6 @@ export default function ReportPage({ answers }) {
 			},
 		],
 	};
-
 	return (
 		<div className="report-container">
 			<h1 className="report-title">Jouw Privacy Verhaal</h1>
@@ -182,7 +212,6 @@ export default function ReportPage({ answers }) {
 				kan hebben. Tijdens deze ervaring hebben we jouw antwoorden verzameld en
 				een beeld gemaakt van je digitale kwetsbaarheid.
 			</p>
-
 			<section className="report-section">
 				<h2>Overzicht van je antwoorden en risico's</h2>
 				<p>
@@ -191,10 +220,13 @@ export default function ReportPage({ answers }) {
 					spraakanalyse en datadeling. Hieronder zie je jouw antwoorden, het
 					bijbehorende risico en de beïnvloedingspatronen die werden gebruikt.
 				</p>
-
-				<h2>Dark pattern overzicht</h2>
-				<div className="donut-chart-container">
-					<Doughnut data={donutData} />
+				<div className="chart-row">
+					<div className="chart-box">
+						<Doughnut data={donutData} />
+					</div>
+					<div className="chart-box">
+						<Bar data={barData} options={barOptions} />
+					</div>
 				</div>
 			</section>
 
@@ -206,37 +238,34 @@ export default function ReportPage({ answers }) {
 					hoe je omgaat met technologie en sociale druk. Hieronder zie je een
 					samenvatting van je antwoorden en wat dit over jou zegt.
 				</p>
-				<div className="bar-chart-container">
-					<Bar data={barData} options={barOptions} />
+				<div className="chart-row">
+					<div className="chart-box">
+						<Bar
+							data={personalPerQuestionData}
+							options={personalPerQuestionOptions}
+						/>
+					</div>
+					<div className="chart-box">
+						<Bar data={personalRiskData} options={barOptions} />
+					</div>
 				</div>
 			</section>
-
-			<section className="report-section">
-				<h2>Persoonlijke vragen overzicht</h2>
-				<div className="bar-chart-container">
-					<Bar
-						data={personalPerQuestionData}
-						options={personalPerQuestionOptions}
-					/>
-				</div>
-			</section>
-
-			<section className="report-section">
-				<h2>Persoonlijke keuzes en risico</h2>
-				<div className="bar-chart-container">
-					<Bar data={personalRiskData} options={barOptions} />
-				</div>
-			</section>
-
-			<section className="report-section">
+			<section className="report-section conclusion-section">
 				<h2>Conclusies</h2>
-				<ul>
+				<p className="conclusion-summary">
+					Op basis van je antwoorden zien we duidelijke patronen in hoe je
+					omgaat met privacy, technologie en risico. Hieronder vind je per
+					onderdeel wat dit betekent, met een inschatting van het risico.
+				</p>
+				<div className="conclusion-grid">
 					{answers.map((a, i) => (
-						<li key={i}>
-							<strong>{a.category}:</strong> {a.insight} ({a.risk_level})
-						</li>
+						<div key={i} className={`conclusion-card risk-${a.risk_level}`}>
+							<h3 className="conclusion-title">{a.category}</h3>
+							<p className="conclusion-text">{a.insight}</p>
+							<span className="risk-label">{a.risk_level}</span>
+						</div>
 					))}
-				</ul>
+				</div>
 			</section>
 		</div>
 	);

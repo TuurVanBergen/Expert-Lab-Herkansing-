@@ -67,7 +67,7 @@ function App() {
 			setStep(-1);
 			setTimeout(() => {
 				setStep(-2);
-			}, 10000);
+			}, 100000);
 		}
 	};
 
