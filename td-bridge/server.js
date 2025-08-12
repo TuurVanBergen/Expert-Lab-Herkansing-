@@ -1,5 +1,8 @@
 // server.js
 import { WebSocketServer } from "ws";
+import SerialPort from "serialport";
+
+const port = new SerialPort("/dev/ttyUSB0", { baudRate: 9600 });
 
 const wss = new WebSocketServer({ port: 8080, host: "0.0.0.0" });
 
@@ -15,6 +18,17 @@ wss.on("connection", (ws) => {
 				client.send(data.toString());
 			}
 		});
+	});
+});
+
+port.on("data", (data) => {
+	const message = data.toString().trim();
+	console.log("Received from Arduino:", message);
+
+	wss.clients.forEach((client) => {
+		if (client.readyState === client.OPEN) {
+			client.send(message);
+		}
 	});
 });
 
