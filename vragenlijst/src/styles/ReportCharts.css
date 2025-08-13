@@ -225,3 +225,9 @@
 		background-color: #9e9e9e;
 	}
 }
+.yes-btn.pressed,
+.no-btn.pressed {
+	background-color: #4caf50; /* bijvoorbeeld groen */
+	transform: scale(0.95);
+	transition: all 0.2s ease;
+}

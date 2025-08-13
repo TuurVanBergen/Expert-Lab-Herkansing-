@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 
-function QuestionPage({ question, onAnswer }) {
+function QuestionPage({ question, onAnswer, digitalBtnPressed }) {
 	const [showConfirmShame, setShowConfirmShame] = useState(false);
 	const [noBtnVisible, setNoBtnVisible] = useState(true);
 	const [noBtnDisabled, setNoBtnDisabled] = useState(false);
+	const [pressedBtn, setPressedBtn] = useState(null); // "ja" of "nee" voor visueel effect
 
 	const handleNoClick = () => {
 		if (question.text.includes("stemming")) {
@@ -16,10 +17,8 @@ function QuestionPage({ question, onAnswer }) {
 	const handleConfirmShameAnswer = (answer) => {
 		setShowConfirmShame(false);
 		if (answer === "ja") {
-			// Confirmshame gelukt, geef ja door
 			onAnswer("ja");
 		} else {
-			// Geen confirmshame
 			onAnswer("nee");
 		}
 	};
@@ -73,6 +72,14 @@ function QuestionPage({ question, onAnswer }) {
 		}
 	}, [question]);
 
+	useEffect(() => {
+		if (digitalBtnPressed) {
+			setPressedBtn(digitalBtnPressed);
+			const timer = setTimeout(() => setPressedBtn(null), 300);
+			return () => clearTimeout(timer);
+		}
+	}, [digitalBtnPressed]);
+
 	return (
 		<div className="question-page">
 			<div className="question-box">
@@ -80,7 +87,7 @@ function QuestionPage({ question, onAnswer }) {
 
 				<div className="button-group">
 					<button
-						className="yes-btn"
+						className={`yes-btn ${pressedBtn === "ja" ? "pressed" : ""}`}
 						onClick={() => !autoAnswered && onAnswer("ja")}
 						disabled={autoAnswered}
 					>
@@ -92,7 +99,7 @@ function QuestionPage({ question, onAnswer }) {
 
 					{noBtnVisible ? (
 						<button
-							className="no-btn"
+							className={`no-btn ${pressedBtn === "nee" ? "pressed" : ""}`}
 							onClick={() => !autoAnswered && handleNoClick()}
 							disabled={noBtnDisabled || autoAnswered}
 						>
