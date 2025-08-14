@@ -1,9 +1,14 @@
-// server.js
 import { WebSocketServer } from "ws";
-import SerialPort from "serialport";
+import { SerialPort } from "serialport";
+import { ReadlineParser } from "@serialport/parser-readline";
 
-const port = new SerialPort("/dev/ttyUSB0", { baudRate: 9600 });
+const port = new SerialPort({
+	path: "/dev/tty.usbmodem21401",
+	baudRate: 9600,
+});
+const parser = port.pipe(new ReadlineParser({ delimiter: "\n" }));
 
+// WebSocket server
 const wss = new WebSocketServer({ port: 8080, host: "0.0.0.0" });
 
 wss.on("connection", (ws) => {
@@ -11,8 +16,6 @@ wss.on("connection", (ws) => {
 
 	ws.on("message", (data) => {
 		console.log("Received from web:", data.toString());
-
-		// Broadcast naar alle clients (inclusief TouchDesigner)
 		wss.clients.forEach((client) => {
 			if (client.readyState === ws.OPEN) {
 				client.send(data.toString());
@@ -21,8 +24,8 @@ wss.on("connection", (ws) => {
 	});
 });
 
-port.on("data", (data) => {
-	const message = data.toString().trim();
+parser.on("data", (line) => {
+	const message = line.trim();
 	console.log("Received from Arduino:", message);
 
 	wss.clients.forEach((client) => {
