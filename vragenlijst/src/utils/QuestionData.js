@@ -72,21 +72,26 @@ const questions = [
 	{
 		text: "Ben jij iemand die liever routines volgt dan verrassingen omarmt?",
 		category: "persoonlijkheid",
-		insight: "Behoefte aan structuur — Big Five: conscientiousness",
+		insight:
+			"Je voorkeur voor routines kan inzicht geven in je voorspelbaarheid en kwetsbaarheid voor manipulatie of marketingstrategieën.",
 		source: "https://en.wikipedia.org/wiki/Big_Five_personality_traits",
 		risk_level: "medium",
 	},
 	{
 		text: "Lach je vaker uit beleefdheid dan om iets écht grappigs?",
 		category: "sociaal gedrag",
-		insight: "Emotional labor — gevoelsmanagement en sociale druk",
+		insight:
+			"Door te analyseren wanneer je lacht, kan men je sociale aanpassingsvermogen en gevoeligheid voor sociale druk inschatten.",
+
 		source: "https://en.wikipedia.org/wiki/Emotional_labor",
 		risk_level: "low",
 	},
 	{
 		text: "Heb je soms het gevoel dat je wordt bekeken, ook als je alleen bent?",
 		category: "privacy-bewustzijn",
-		insight: "Surveillance awareness / paranoia",
+		insight:
+			"Dit geeft een indicatie van hoe bewust je bent van surveillance en welke persoonlijke routines mogelijk kunnen worden gevolgd.",
+
 		source: "https://en.wikipedia.org/wiki/Surveillance",
 		risk_level: "high",
 	},
@@ -94,28 +99,32 @@ const questions = [
 		text: "Voel jij je vaker verbonden met machines dan met mensen?",
 		category: "technologievoorkeur",
 		insight:
-			"Technophilia — voorkeur voor technologie boven menselijke interactie",
+			"Deze vraag onthult je afhankelijkheid van technologie, wat kan worden gebruikt om je digitale gedrag en voorkeuren te voorspellen.",
+
 		source: "https://en.wikipedia.org/wiki/Technophilia",
 		risk_level: "medium",
 	},
 	{
 		text: "Ben je sneller geneigd iets te geloven als het mooi gepresenteerd is?",
 		category: "cognitieve bias",
-		insight: "Aesthetic–usability effect — vorm beïnvloedt oordeel",
+		insight:
+			"Deze informatie kan worden gebruikt om te voorspellen hoe gemakkelijk je beïnvloedbaar bent door visuele marketing of misleidende informatie.",
 		source: "https://en.wikipedia.org/wiki/Aesthetic%E2%80%93usability_effect",
 		risk_level: "medium",
 	},
 	{
 		text: "Verander je van mening als de meerderheid iets anders vindt?",
 		category: "groepsdruk",
-		insight: "Conformisme — gevoeligheid voor groepsdruk",
+		insight:
+			"Door te weten hoe gevoelig je bent voor groepsdruk, kan men inschatten hoe je beslissingen in sociale of professionele contexten beïnvloedbaar zijn.",
 		source: "https://en.wikipedia.org/wiki/Asch_conformity_experiments",
 		risk_level: "high",
 	},
 	{
 		text: "Denk je vaak dat mensen je gedrag analyseren?",
 		category: "privacy-bewustzijn",
-		insight: "Zelfbewustzijn en gevoel van observatie",
+		insight:
+			"Dit kan aangeven hoe zelfbewust je bent en welke persoonlijke patronen anderen mogelijk kunnen volgen of misbruiken.",
 		source: "https://en.wikipedia.org/wiki/Surveillance",
 		risk_level: "high",
 	},
@@ -123,7 +132,8 @@ const questions = [
 		text: "Is eerlijk zijn belangrijker dan aardig zijn?",
 		category: "morele oriëntatie",
 		insight:
-			"Kohlberg’s moral development — principieel vs sociaal georiënteerd",
+			"Deze vraag kan blootleggen welke ethische keuzes je maakt, informatie die gebruikt kan worden voor sociale of psychologische profilering.",
+
 		source:
 			"https://en.wikipedia.org/wiki/Kohlberg%27s_stages_of_moral_development",
 		risk_level: "low",
@@ -131,7 +141,8 @@ const questions = [
 	{
 		text: "Hou je ervan om gecontroleerd te worden, zolang het duidelijk is?",
 		category: "toezichtsacceptatie",
-		insight: "Acceptatie van toezicht en autoriteitsgevoel",
+		insight:
+			"Dit onthult je tolerantie voor toezicht, wat kan worden gebruikt om je reactie op monitoring of tracking te voorspellen.",
 		source: "https://en.wikipedia.org/wiki/Stanford_prison_experiment",
 		risk_level: "high",
 	},
@@ -139,7 +150,8 @@ const questions = [
 		text: "Herinner je je liever dan dat je opzoekt?",
 		category: "cognitieve voorkeur",
 		insight:
-			"Extended mind theory — intern geheugen vs afhankelijkheid technologie",
+			"Deze vraag geeft inzicht in hoe afhankelijk je bent van technologie versus intern geheugen, wat kan worden gebruikt om je digitale gedrag te analyseren.",
+
 		source: "https://en.wikipedia.org/wiki/Extended_mind_thesis",
 		risk_level: "medium",
 	},

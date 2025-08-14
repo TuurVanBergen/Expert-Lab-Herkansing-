@@ -21,3 +21,12 @@ button {
 .end-page {
 	background-color: transparent;
 }
+.no-print {
+	display: flex;
+}
+
+@media print {
+	.no-print {
+		display: none;
+	}
+}

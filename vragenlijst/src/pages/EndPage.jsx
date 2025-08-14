@@ -1,32 +1,30 @@
 // EndPage.jsx
 import React from "react";
+import "../styles/EndPage.css";
 
 export default function EndPage() {
 	return (
-		<div
-			style={{
-				display: "flex",
-				flexDirection: "column",
-				alignItems: "center",
-				justifyContent: "center",
-				height: "100vh",
-				backgroundColor: "#111",
-				color: "#fff",
-				fontFamily: "Arial, sans-serif",
-				textAlign: "center",
-				padding: "20px",
-			}}
-		>
-			<h1>Bedankt voor je deelname</h1>
-			<p style={{ maxWidth: "500px", fontSize: "18px" }}>
-				Je antwoorden zijn verzameld en worden nu verwerkt.
-			</p>
-			<p style={{ fontSize: "16px", opacity: 0.8 }}>
-				<em>
-					Tip: Het is soms verrassend hoeveel er uit een paar vragen te halen
-					is...
-				</em>
-			</p>
+		<div className="endpage no-print">
+			<div className="endpage__box">
+				<h1 className="endpage__title">Bedankt voor je deelname</h1>
+
+				<p className="endpage__printer">
+					Kijk nu naar de printer — jouw gepersonaliseerde print komt eraan.
+				</p>
+
+				<p className="endpage__lead">
+					Je dacht een visual te personaliseren. In werkelijkheid heb je zojuist
+					persoonlijke informatie gedeeld.
+				</p>
+
+				<p className="endpage__hint">
+					<em>
+						Deze installatie draait om bewustwording: met een paar simpele
+						vragen kunnen we al een verrassend volledig beeld van je vormen.
+						Denk na voordat je deelt.
+					</em>
+				</p>
+			</div>
 		</div>
 	);
 }
