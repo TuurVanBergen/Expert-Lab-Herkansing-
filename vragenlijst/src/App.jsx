@@ -15,7 +15,18 @@ function App() {
 	const [answers, setAnswers] = useState([]);
 	const [digitalBtnPressed, setDigitalBtnPressed] = useState(null);
 	const videoRef = useRef(null);
+	const handlePrint = () => {
+		const charts = document.getElementById("report-charts");
+		if (charts) charts.style.visibility = "visible";
 
+		// Trigger print
+		window.print();
+
+		// Optioneel: na print weer verbergen
+		setTimeout(() => {
+			if (charts) charts.style.visibility = "hidden";
+		}, 500);
+	};
 	const { sendMessage } = useWebSocket("ws://localhost:8080");
 
 	// Start virtuele camera
@@ -49,6 +60,23 @@ function App() {
 					setTimeout(() => setDigitalBtnPressed(null), 300);
 				}
 				return;
+			}
+			const handlePrint = () => {
+				const reportElement = document.getElementById("report-charts");
+				if (reportElement) {
+					// Maak het zichtbaar als het verborgen is
+					reportElement.style.visibility = "visible";
+
+					// Trigger print
+					window.print();
+				}
+			};
+
+			if (step === -1) {
+				if (msg === "YES_BTN" || msg === "NO_BTN") {
+					// beide knoppen triggeren print
+					handlePrint();
+				}
 			}
 
 			// Vragenpagina: antwoorden verwerken
@@ -105,7 +133,6 @@ function App() {
 			setTimeout(() => setStep(0), 20000); // 20 seconden
 		}
 	};
-
 	return (
 		<>
 			{/* Achtergrond video */}
@@ -135,13 +162,15 @@ function App() {
 			)}
 
 			{/* Eindpagina + rapport */}
+			{/* Eindpagina + rapport */}
 			{step === -1 && (
 				<>
-					<EndPage />
+					<EndPage onPrint={handlePrint} />
+
 					<ReportCharts
 						answers={answers}
 						id="report-charts"
-						style={{ position: "absolute", left: "0", visibility: "visible" }}
+						style={{ position: "absolute", left: "0", visibility: "hidden" }} // start hidden
 					/>
 				</>
 			)}

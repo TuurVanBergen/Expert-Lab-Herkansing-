@@ -3,7 +3,7 @@ import { SerialPort } from "serialport";
 import { ReadlineParser } from "@serialport/parser-readline";
 
 const port = new SerialPort({
-	path: "/dev/tty.usbmodem21401",
+	path: "/dev/tty.usbmodem1301",
 	baudRate: 9600,
 });
 const parser = port.pipe(new ReadlineParser({ delimiter: "\n" }));

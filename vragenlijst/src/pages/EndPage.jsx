@@ -2,7 +2,7 @@
 import React from "react";
 import "../styles/EndPage.css";
 
-export default function EndPage() {
+export default function EndPage({ onPrint }) {
 	return (
 		<div className="endpage no-print">
 			<div className="endpage__box">
@@ -24,6 +24,10 @@ export default function EndPage() {
 						Denk na voordat je deelt.
 					</em>
 				</p>
+				{/* Printknop */}
+				<button className="endpage__print-btn" onClick={onPrint}>
+					klik voor een verrassing
+				</button>
 			</div>
 		</div>
 	);
